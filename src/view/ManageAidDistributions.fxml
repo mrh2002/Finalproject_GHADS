@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ManageAidDistributionsController"
+      stylesheets="@styles.css">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- TITLE -->
+    <Label text="توزيع المساعدات"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <Separator/>
+
+    <!-- SEARCH SECTION -->
+    <VBox spacing="10">
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="بحث:"/>
+
+            <TextField fx:id="searchField"
+                       promptText="اسم العائلة أو نوع المساعدة..."
+                       HBox.hgrow="ALWAYS"
+                       style="-fx-pref-height: 35;"/>
+
+            <Label text="تصفية حسب المنظمة:"/>
+
+            <ComboBox fx:id="filterOrganizationComboBox" prefWidth="150"/>
+
+            <Button text="بحث" onAction="#handleSearch" styleClass="button-primary"/>
+            <Button text="عرض الكل" onAction="#handleRefresh" styleClass="button-success"/>
+        </HBox>
+
+        <!-- ADVANCED SEARCH -->
+        <TitledPane text="البحث المتقدم - العائلات الأكثر احتياجاً" animated="false">
+
+            <VBox spacing="10">
+
+                <HBox spacing="20">
+
+                    <!-- ToggleGroup REMOVED from FXML (FIXED) -->
+
+                    <RadioButton fx:id="mostVulnerableRadio"
+                                 text="العائلات الأكثر احتياجاً (HIGH أولاً)"/>
+
+                    <RadioButton fx:id="unservedRadio"
+                                 text="العائلات التي لم تتلق مساعدة بعد"/>
+
+                </HBox>
+
+                <Button text="بحث"
+                        onAction="#searchVulnerableFamilies"
+                        styleClass="button-primary"/>
+
+            </VBox>
+        </TitledPane>
+
+    </VBox>
+
+    <!-- MAIN SPLIT -->
+    <SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+
+        <!-- TABLE -->
+        <VBox spacing="10">
+
+            <Label text="قائمة المساعدات" style="-fx-font-weight: bold;"/>
+
+            <TableView fx:id="distributionsTable" VBox.vgrow="ALWAYS">
+
+                <columns>
+                    <TableColumn fx:id="idColumn" text="#" prefWidth="40"/>
+                    <TableColumn fx:id="familyNameColumn" text="اسم العائلة" prefWidth="150"/>
+                    <TableColumn fx:id="organizationColumn" text="المنظمة" prefWidth="150"/>
+                    <TableColumn fx:id="aidTypeColumn" text="نوع المساعدة" prefWidth="120"/>
+                    <TableColumn fx:id="dateColumn" text="تاريخ التوزيع" prefWidth="100"/>
+                    <TableColumn fx:id="coordinatorColumn" text="المنسق" prefWidth="120"/>
+                </columns>
+
+                <placeholder>
+                    <Label text="لا توجد بيانات" style="-fx-text-fill: #95a5a6;"/>
+                </placeholder>
+
+            </TableView>
+
+        </VBox>
+
+        <!-- FORM -->
+        <VBox spacing="12" style="-fx-padding: 0 0 0 10;">
+
+            <Label text="تسجيل مساعدة جديدة"
+                   style="-fx-font-weight: bold;"/>
+
+            <GridPane hgap="10" vgap="10">
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="30"/>
+                    <ColumnConstraints percentWidth="70"/>
+                </columnConstraints>
+
+                <Label text="اختر العائلة:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <ComboBox fx:id="familyComboBox"
+                          promptText="اختر عائلة"
+                          GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="نوع المساعدة:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="aidTypeComboBox"
+                          GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="تاريخ التوزيع:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <DatePicker fx:id="distributionDatePicker"
+                            GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="ملاحظات:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextArea fx:id="notesArea"
+                          promptText="أدخل ملاحظات إضافية..."
+                          prefHeight="80"
+                          GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+            </GridPane>
+
+            <!-- FIXED BUTTON AREA (NO VBox.margin) -->
+            <HBox spacing="10" alignment="CENTER_RIGHT"
+                  style="-fx-padding: 10 0 0 0;">
+
+                <Button fx:id="addButton" text="تسجيل مساعدة"
+                        onAction="#handleAdd"
+                        styleClass="button-success"/>
+
+                <Button fx:id="editButton" text="تعديل"
+                        onAction="#handleEdit"
+                        disable="true"
+                        styleClass="button-warning"/>
+
+                <Button fx:id="deleteButton" text="حذف"
+                        onAction="#handleDelete"
+                        disable="true"
+                        styleClass="button-danger"/>
+
+                <Button fx:id="resetButton" text="Reset"
+                        onAction="#resetForm"
+                        styleClass="button-secondary"/>
+
+                <Button fx:id="refreshButton" text="Refresh"
+                        onAction="#handleRefresh"
+                        styleClass="button-primary"/>
+
+            </HBox>
+        </VBox>
+
+    </SplitPane>
+
+</VBox>

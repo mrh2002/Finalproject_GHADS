@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ManageUsersController"
+      stylesheets="@styles.css">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- TITLE -->
+    <Label text="إدارة المستخدمين"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <Separator/>
+
+    <!-- SEARCH -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+
+        <Label text="بحث:"/>
+
+        <TextField fx:id="searchField"
+                   promptText="الاسم أو اسم المستخدم أو البريد..."
+                   HBox.hgrow="ALWAYS"
+                   style="-fx-pref-height: 35;"/>
+
+        <Button text="بحث" onAction="#handleSearch" styleClass="button-primary"/>
+        <Button text="عرض الكل" onAction="#handleRefresh" styleClass="button-success"/>
+
+    </HBox>
+
+    <!-- MAIN -->
+    <SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+
+        <!-- TABLE -->
+        <VBox spacing="10">
+
+            <Label text="قائمة المستخدمين" style="-fx-font-weight: bold;"/>
+
+            <TableView fx:id="usersTable" VBox.vgrow="ALWAYS">
+
+                <columns>
+                    <TableColumn fx:id="idColumn" text="#" prefWidth="40"/>
+                    <TableColumn fx:id="photoColumn" text="الصورة" prefWidth="60"/>
+                    <TableColumn fx:id="nameColumn" text="الاسم الكامل" prefWidth="160"/>
+                    <TableColumn fx:id="usernameColumn" text="اسم المستخدم" prefWidth="120"/>
+                    <TableColumn fx:id="emailColumn" text="البريد الإلكتروني" prefWidth="160"/>
+                    <TableColumn fx:id="roleColumn" text="الدور" prefWidth="100"/>
+                    <TableColumn fx:id="organizationColumn" text="المنظمة" prefWidth="140"/>
+                </columns>
+
+                <placeholder>
+                    <Label text="لا توجد بيانات" style="-fx-text-fill: #95a5a6;"/>
+                </placeholder>
+
+            </TableView>
+
+        </VBox>
+
+        <!-- FORM -->
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
+
+            <VBox spacing="12" style="-fx-padding: 0 0 0 10;">
+
+                <Label text="بيانات المستخدم" style="-fx-font-weight: bold;"/>
+
+                <GridPane hgap="10" vgap="10">
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30"/>
+                        <ColumnConstraints percentWidth="70"/>
+                    </columnConstraints>
+
+                    <Label text="الاسم الكامل:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="fullNameField"
+                               promptText="أدخل الاسم الكامل"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="اسم المستخدم:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="usernameField"
+                               promptText="أدخل اسم المستخدم"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="كلمة المرور:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <PasswordField fx:id="passwordField"
+                                   promptText="أدخل كلمة المرور (8 أحرف على الأقل)"
+                                   GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="البريد الإلكتروني:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="emailField"
+                               promptText="example@domain.com"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                    <Label text="الدور:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <ComboBox fx:id="roleComboBox"
+                              GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                    <Label text="المنظمة:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                    <ComboBox fx:id="organizationComboBox"
+                              promptText="اختر المنظمة (للمنسقين فقط)"
+                              GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                    <!-- ====== NEW: PHOTO SECTION ====== -->
+                    <Label text="الصورة الشخصية:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-font-weight: bold;"/>
+                    <VBox spacing="8" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <HBox spacing="10">
+                            <Button fx:id="selectPhotoButton" text="اختر صورة" styleClass="button-secondary"/>
+                            <Button fx:id="clearPhotoButton" text="مسح الصورة" styleClass="button-danger"/>
+                        </HBox>
+                        <Label fx:id="photoPathLabel" text="لم يتم اختيار صورة" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"/>
+                        <ImageView fx:id="photoPreviewImageView" fitWidth="80" fitHeight="80" preserveRatio="true">
+                            <VBox.margin>
+                                <Insets top="5"/>
+                            </VBox.margin>
+                        </ImageView>
+                    </VBox>
+
+                </GridPane>
+
+                <!-- BUTTONS -->
+                <HBox spacing="10"
+                      alignment="CENTER_RIGHT"
+                      style="-fx-padding: 10 0 0 0;">
+
+                    <Button fx:id="addButton" text="إضافة"
+                            onAction="#handleAdd"
+                            styleClass="button-success"/>
+
+                    <Button fx:id="editButton" text="تعديل"
+                            onAction="#handleEdit"
+                            disable="true"
+                            styleClass="button-warning"/>
+
+                    <Button fx:id="deleteButton" text="حذف"
+                            onAction="#handleDelete"
+                            disable="true"
+                            styleClass="button-danger"/>
+
+                    <Button fx:id="resetButton" text="Reset"
+                            onAction="#resetForm"
+                            styleClass="button-secondary"/>
+
+                    <Button fx:id="refreshButton" text="Refresh"
+                            onAction="#handleRefresh"
+                            styleClass="button-primary"/>
+
+                </HBox>
+
+            </VBox>
+
+        </ScrollPane>
+
+    </SplitPane>
+
+</VBox>

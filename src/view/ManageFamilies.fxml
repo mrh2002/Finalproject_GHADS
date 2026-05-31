@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ManageFamiliesController"
+      stylesheets="@styles.css">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <!-- TITLE -->
+    <Label text="إدارة العائلات"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+    <Separator/>
+
+    <!-- SEARCH -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+
+        <Label text="بحث:"/>
+
+        <TextField fx:id="searchField"
+                   promptText="اسم رب الأسرة أو رقم الهوية..."
+                   HBox.hgrow="ALWAYS"
+                   style="-fx-pref-height: 35;"/>
+
+        <Button text="بحث" onAction="#handleSearch" styleClass="button-primary"/>
+        <Button text="عرض الكل" onAction="#handleRefresh" styleClass="button-success"/>
+
+    </HBox>
+
+    <!-- MAIN CONTENT -->
+    <SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+
+        <!-- TABLE -->
+        <VBox spacing="10">
+
+            <Label text="قائمة العائلات" style="-fx-font-weight: bold;"/>
+
+            <TableView fx:id="familiesTable" VBox.vgrow="ALWAYS">
+
+                <columns>
+                    <TableColumn fx:id="idColumn" text="#" prefWidth="40"/>
+                    <TableColumn fx:id="nationalIdColumn" text="رقم الهوية" prefWidth="120"/>
+                    <TableColumn fx:id="headNameColumn" text="رب الأسرة" prefWidth="150"/>
+                    <TableColumn fx:id="phoneColumn" text="الهاتف" prefWidth="100"/>
+                    <TableColumn fx:id="addressColumn" text="العنوان" prefWidth="150"/>
+                    <TableColumn fx:id="membersCountColumn" text="عدد الأفراد" prefWidth="80"/>
+                    <TableColumn fx:id="vulnerabilityColumn" text="مستوى الخطورة" prefWidth="100"/>
+                </columns>
+
+                <placeholder>
+                    <Label text="لا توجد بيانات" style="-fx-text-fill: #95a5a6;"/>
+                </placeholder>
+
+            </TableView>
+
+        </VBox>
+
+        <!-- FORM -->
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
+
+            <VBox spacing="12" style="-fx-padding: 0 0 0 10;">
+
+                <Label text="بيانات العائلة" style="-fx-font-weight: bold;"/>
+
+                <GridPane hgap="10" vgap="10">
+
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30"/>
+                        <ColumnConstraints percentWidth="70"/>
+                    </columnConstraints>
+
+                    <Label text="رقم الهوية:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <TextField fx:id="nationalIdField"
+                               promptText="أدخل رقم الهوية الوطنية"
+                               GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="رب الأسرة:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <TextField fx:id="headNameField"
+                               promptText="أدخل اسم رب الأسرة"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="رقم الهاتف:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <TextField fx:id="phoneField"
+                               promptText="أدخل رقم الهاتف"
+                               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="العنوان:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <TextField fx:id="addressField"
+                               promptText="أدخل العنوان"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+                    <Label text="عدد الأفراد:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                    <Spinner fx:id="membersCountSpinner"
+                             GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                    <Label text="مستوى الخطورة:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+                    <ComboBox fx:id="vulnerabilityComboBox"
+                              GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                    <Label text="تاريخ التسجيل:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                    <DatePicker fx:id="registrationDatePicker"
+                                GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                </GridPane>
+
+                <!-- BUTTONS (FIXED) -->
+                <HBox spacing="10"
+                      alignment="CENTER_RIGHT"
+                      style="-fx-padding: 10 0 0 0;">
+
+                    <Button fx:id="addButton" text="إضافة"
+                            onAction="#handleAdd"
+                            styleClass="button-success"/>
+
+                    <Button fx:id="editButton" text="تعديل"
+                            onAction="#handleEdit"
+                            disable="true"
+                            styleClass="button-warning"/>
+
+                    <Button fx:id="deleteButton" text="حذف"
+                            onAction="#handleDelete"
+                            disable="true"
+                            styleClass="button-danger"/>
+
+                    <Button fx:id="resetButton" text="Reset"
+                            onAction="#resetForm"
+                            styleClass="button-secondary"/>
+
+                    <Button fx:id="refreshButton" text="Refresh"
+                            onAction="#handleRefresh"
+                            styleClass="button-primary"/>
+
+                </HBox>
+
+            </VBox>
+
+        </ScrollPane>
+
+    </SplitPane>
+
+</VBox>

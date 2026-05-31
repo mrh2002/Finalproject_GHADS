@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controller.LoginController"
+            stylesheets="@styles.css">
+    
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-background-color: linear-gradient(to bottom, #1a5276, #2980b9);">
+            <padding>
+                <Insets top="80" right="50" bottom="80" left="50"/>
+            </padding>
+            
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="GHADS" style="-fx-text-fill: white; -fx-font-size: 42px; -fx-font-weight: bold;"/>
+                <Label text="Gaza Humanitarian Aid Distribution System" style="-fx-text-fill: #ecf0f1; -fx-font-size: 16px;"/>
+                <Label text="نظام توزيع المساعدات الإنسانية في غزة" style="-fx-text-fill: #bdc3c7; -fx-font-size: 14px;"/>
+            </VBox>
+            
+            <VBox alignment="CENTER" spacing="15" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 15, 0, 0, 5);" maxWidth="400" prefWidth="380">
+                
+                <Label text="تسجيل الدخول" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Separator prefWidth="300"/>
+                
+                <TextField fx:id="usernameField" promptText="اسم المستخدم" style="-fx-pref-width: 300; -fx-font-size: 14px; -fx-padding: 12;"/>
+                <PasswordField fx:id="passwordField" promptText="كلمة المرور" style="-fx-pref-width: 300; -fx-font-size: 14px; -fx-padding: 12;"/>
+                
+                <Label fx:id="errorLabel" style="-fx-text-fill: #e74c3c; -fx-font-size: 12px;" wrapText="true" prefWidth="300"/>
+                
+                <HBox spacing="20" alignment="CENTER">
+                    <Button fx:id="loginButton" text="دخول" onAction="#handleLogin" styleClass="button-primary"/>
+                    <Button fx:id="exitButton" text="خروج" onAction="#handleExit" styleClass="button-danger"/>
+                </HBox>
+            </VBox>
+            
+            <Label text="2024 GHADS - جميع الحقوق محفوظة" style="-fx-text-fill: #bdc3c7; -fx-font-size: 11px;"/>
+        </VBox>
+    </center>
+</BorderPane>

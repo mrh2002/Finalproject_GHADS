@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="controller.ManageOrganizationsController"
+      stylesheets="@styles.css">
+    
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    
+    <Label text="إدارة المنظمات" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <Separator/>
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="بحث:"/>
+        <TextField fx:id="searchField" promptText="اسم المنظمة أو النوع..." HBox.hgrow="ALWAYS" style="-fx-pref-height: 35;"/>
+        <Button text="بحث" onAction="#handleSearch" styleClass="button-primary"/>
+        <Button text="عرض الكل" onAction="#handleRefresh" styleClass="button-success"/>
+    </HBox>
+    
+    <SplitPane dividerPositions="0.6" VBox.vgrow="ALWAYS">
+        
+        <VBox spacing="10">
+            <Label text="قائمة المنظمات" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="organizationsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="#" prefWidth="50"/>
+                    <TableColumn fx:id="nameColumn" text="اسم المنظمة" prefWidth="200"/>
+                    <TableColumn fx:id="typeColumn" text="النوع" prefWidth="150"/>
+                    <TableColumn fx:id="contactColumn" text="معلومات الاتصال" prefWidth="200"/>
+                </columns>
+                <placeholder>
+                    <Label text="لا توجد بيانات" style="-fx-text-fill: #95a5a6;"/>
+                </placeholder>
+            </TableView>
+        </VBox>
+        
+        <VBox spacing="15" style="-fx-padding: 0 0 0 10;">
+            <Label text="بيانات المنظمة" style="-fx-font-weight: bold;"/>
+            
+            <VBox spacing="10">
+                <Label text="اسم المنظمة:"/>
+                <TextField fx:id="nameField" promptText="أدخل اسم المنظمة"/>
+                
+                <Label text="نوع المنظمة:"/>
+                <TextField fx:id="typeField" promptText="مثال: إغاثي, طبي, غذائي"/>
+                
+                <Label text="معلومات الاتصال:"/>
+                <TextField fx:id="contactField" promptText="هاتف / بريد إلكتروني / عنوان"/>
+            </VBox>
+            
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="addButton" text="إضافة" onAction="#handleAdd" styleClass="button-success"/>
+                <Button fx:id="editButton" text="تعديل" onAction="#handleEdit" disable="true" styleClass="button-warning"/>
+                <Button fx:id="deleteButton" text="حذف" onAction="#handleDelete" disable="true" styleClass="button-danger"/>
+                <Button fx:id="resetButton" text="Reset" onAction="#resetForm" styleClass="button-secondary"/>
+                <Button fx:id="refreshButton" text="Refresh" onAction="#handleRefresh" styleClass="button-primary"/>
+            </HBox>
+        </VBox>
+    </SplitPane>
+</VBox>

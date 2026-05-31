@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/8" 
+      xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="controller.ProfileController"
+      stylesheets="@styles.css">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <Label text="الملف الشخصي" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <Separator/>
+    
+    <!-- PROFILE PHOTO SECTION  -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="10">
+            <ImageView fx:id="profileImageView" fitWidth="120" fitHeight="120" preserveRatio="true" 
+                       style="-fx-background-color: #ecf0f1; -fx-background-radius: 60; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);"/>
+            <HBox spacing="10">
+                <Button fx:id="changePhotoButton" text="تغيير الصورة" styleClass="button-secondary" visible="false"/>
+                <Button fx:id="removePhotoButton" text="إزالة الصورة" styleClass="button-danger" visible="false"/>
+            </HBox>
+        </VBox>
+    </HBox>
+    
+    <GridPane hgap="15" vgap="15" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        
+        <Label text="رقم المستخدم:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;"/>
+        <Label fx:id="userIdLabel" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        
+        <Label text="الاسم الكامل:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="fullNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3"/>
+        
+        <Label text="اسم المستخدم:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="usernameField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3"/>
+        
+        <Label text="البريد الإلكتروني:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold;"/>
+        <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="3"/>
+        
+        <Label text="الدور:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold;"/>
+        <Label fx:id="roleLabel" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        
+        <Label text="المنظمة:" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold;"/>
+        <Label fx:id="organizationLabel" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        
+        <Label text="تاريخ التسجيل:" GridPane.columnIndex="0" GridPane.rowIndex="6" style="-fx-font-weight: bold;"/>
+        <Label fx:id="createdAtLabel" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    </GridPane>
+    
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button fx:id="editButton" text="تعديل" onAction="#handleEdit" styleClass="button-warning"/>
+        <Button fx:id="saveButton" text="حفظ" onAction="#handleSave" visible="false" styleClass="button-success"/>
+        <Button fx:id="cancelButton" text="إلغاء" onAction="#handleCancel" visible="false" styleClass="button-secondary"/>
+    </HBox>
+</VBox>
